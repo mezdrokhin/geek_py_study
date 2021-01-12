@@ -1,0 +1,1 @@
+print([l for l in range(20,241) if l%20==0 or l%21==0])
