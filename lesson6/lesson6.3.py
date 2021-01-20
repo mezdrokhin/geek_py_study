@@ -1,24 +1,27 @@
 class Worker:
     wage=0
     bonus=0
-    income = {"wage": wage, "bonus": bonus}
+    __income = {"wage": wage, "bonus": bonus}
     name=''
     surname=''
     position=''
+    def __init__(self, n, s, p, w, b):
+        Worker.name = n
+        Worker.surname = s
+        Worker.position = p
+        Worker.__income["wage"] = w
+        Worker.__income["bonus"] = b
+
+    def get_total_income(self):
+        return self.__income["wage"] + self.__income["bonus"]
 
 class Position(Worker):
     def __init__(self,n,s,p,w,b):
-        Worker.name=n
-        Worker.surname=s
-        Worker.position=p
-        Worker.income["wage"]=w
-        Worker.income["bonus"]=b
+        Worker.__init__(self,n,s,p,w,b)
     def get_full_name(self):
         return Worker.name+' '+Worker.surname+' - '+Worker.position
     def get_total_income(self):
-        return Worker.income["wage"]+Worker.income["bonus"]
+        return Worker.get_total_income(self)
 a=Position('vasya','ivanov','boss',100,50)
 print(a.get_full_name())
-print(a.get_total_income())
-
-# Не понимаю, как сделать защищенным income. Если я делаю везде __income, то вылазит ошибка, что нет Position.__income, то есть он не обращается к Worker, чтобы взять __income из него. Как нужно сделать? Из методички не врубился...
+print('Полная зарплата: ',a.get_total_income())
